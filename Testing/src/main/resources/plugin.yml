@@ -1,7 +1,7 @@
 name: Testing
 version: '${project.version}'
-main: com.puncher.testing.Testing
+main: com.puncher.testing.Main
 api-version: 1.17
-authors: [ Puncher1 ]
+authors: [ Puncher ]
 description: Minecraft Spigot Testings
 website: https://github.com/Puncher1/Minecraft-Spigot
