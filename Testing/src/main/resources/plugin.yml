@@ -5,3 +5,7 @@ api-version: 1.17
 authors: [ Puncher ]
 description: Minecraft Spigot Testings
 website: https://github.com/Puncher1/Minecraft-Spigot
+
+commands:
+  timer:
+    permission: testing.command.timer
