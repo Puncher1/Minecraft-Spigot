@@ -1,0 +1,6 @@
+name: Testing
+version: '${project.version}'
+main: com.puncher.testing.Main
+api-version: 1.18
+authors: [Puncher]
+description: Testings in Minecraft Spigot programming
