@@ -8,10 +8,13 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.util.Vector;
 
+import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 public class BlockListener implements Listener {
@@ -26,25 +29,27 @@ public class BlockListener implements Listener {
             event.setCancelled(true);
             block.setType(Material.STONE);
 
-            float zPos = 1;
-            for (int i = 0; i < 10; i++)
-            {
-                Location locationGoldOre = block.getLocation().add(0.5, zPos, 0.5);
-                ArmorStand armorstand = block.getWorld().spawn(locationGoldOre, ArmorStand.class);
-                armorstand.setVisible(false);
-                armorstand.setGravity(false);
-                armorstand.setCustomNameVisible(true);
-                armorstand.setMarker(true);
-                armorstand.setCustomName(ChatColor.GREEN + "+" + ChatColor.YELLOW + " 2.5 " + ChatColor.GREEN +
-                        "M");
-                try
-                {
-                    TimeUnit.MILLISECONDS.wait(1000);
-                }
-                catch (InterruptedException e) {}
-                armorstand.remove();
-                zPos += 1;
-            }
+            Location locationGoldOre = block.getLocation().add(0.5, 1, 0.5);
+            Location startLocationArmorStand = locationGoldOre;
+            Location endLocationArmorStand = block.getLocation().add(0.5, 1, 1.5);
+
+            ArmorStand armorstand = block.getWorld().spawn(locationGoldOre, ArmorStand.class);
+            armorstand.setVisible(false);
+            armorstand.setGravity(true);
+            armorstand.setCustomNameVisible(true);
+            armorstand.setMarker(true);
+            armorstand.setCustomName(ChatColor.GREEN + "+" + ChatColor.YELLOW + " 2.5 " + ChatColor.GREEN +
+                    "M");
+
+            double pitchVector = ((locationGoldOre.getPitch()) * Math.PI) / 180;
+            double yawVector = ((locationGoldOre.getYaw()) * Math.PI) / 180;
+            double xVector = Math.sin(pitchVector) * Math.cos(yawVector);
+            double yVector = Math.sin(pitchVector) * Math.sin(yawVector);
+            double zVector = Math.cos(pitchVector);
+
+            Vector vectorArmorStand = new Vector(xVector, zVector, yVector);
+            armorstand.setVelocity(vectorArmorStand.multiply(3));
+            armorstand.teleport(armorstand.getLocation().add(vectorArmorStand));
         }
 
     }
