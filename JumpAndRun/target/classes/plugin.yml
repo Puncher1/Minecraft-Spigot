@@ -1,0 +1,6 @@
+name: JumpAndRun
+version: '1.0-SNAPSHOT'
+main: com.puncher.jumpandrun.Main
+api-version: 1.17
+authors: [ Puncher ]
+description: Jump and Run
