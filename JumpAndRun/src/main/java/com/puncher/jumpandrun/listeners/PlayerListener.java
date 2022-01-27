@@ -87,32 +87,61 @@ public class PlayerListener implements Listener {
 
                 currentBlockLocation = nextBlockLocation;
 
-                int randomX = ThreadLocalRandom.current().nextInt(0, 4 + 1);
-                int randomZ;
 
-                if (randomX == 4)
+                int randomY = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+                int randomX = 0;
+                int randomZ = 0;
+
+                if (randomY == 0)
                 {
-                    randomZ = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+                    randomX = ThreadLocalRandom.current().nextInt(0, 4 + 1);
+
+                    if (randomX == 4)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(0, 3 + 1);
+                    }
+                    else if (randomX == 3)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(0, 4 + 1);
+                    }
+                    else if (randomX == 2)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(0, 4 + 1);
+                    }
+                    else if (randomX == 1)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                    }
+                    else if (randomX == 0)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                    }
                 }
-                else if (randomX == 3)
+
+                else if (randomY == 1)
                 {
-                    randomZ = ThreadLocalRandom.current().nextInt(0, 3 + 1);
-                }
-                else if (randomX == 2)
-                {
-                    randomZ = ThreadLocalRandom.current().nextInt(0, 3 + 1);
-                }
-                else if (randomX == 1)
-                {
-                    randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
-                }
-                else if (randomX == 0)
-                {
-                    randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
-                }
-                else
-                {
-                    randomZ = 100;
+                    randomX = ThreadLocalRandom.current().nextInt(0, 4 + 1);
+
+                    if (randomX == 4)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+                    }
+                    else if (randomX == 3)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(0, 3 + 1);
+                    }
+                    else if (randomX == 2)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(0, 3 + 1);
+                    }
+                    else if (randomX == 1)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                    }
+                    else if (randomX == 0)
+                    {
+                        randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                    }
                 }
 
                 boolean randomMinusPlusX = ThreadLocalRandom.current().nextBoolean();
@@ -131,7 +160,7 @@ public class PlayerListener implements Listener {
                 nextBlockLocation = new Location(
                         world,
                         currentBlockLocation.getBlockX() + randomX,
-                        currentBlockLocation.getBlockY() + 1,
+                        currentBlockLocation.getBlockY() + randomY,
                         currentBlockLocation.getBlockZ() + randomZ
                 );
 
