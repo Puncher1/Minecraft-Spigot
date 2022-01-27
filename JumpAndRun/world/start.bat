@@ -1,0 +1,1 @@
+java -Xmx4000M -Xms2000M -DIReallyKnowWhatIAmDoingISwear -jar server.jar --nogui -o true

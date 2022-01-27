@@ -1,0 +1,14 @@
+[
+  {
+    "uuid": "1d5bf2f2-f973-4dbc-a6cc-bd8e22ecaf26",
+    "name": "5headPuncher",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  },
+  {
+    "uuid": "0d2aa64b-5ac3-412c-8459-2716e1e023b2",
+    "name": "Puncher2",
+    "level": 4,
+    "bypassesPlayerLimit": false
+  }
+]

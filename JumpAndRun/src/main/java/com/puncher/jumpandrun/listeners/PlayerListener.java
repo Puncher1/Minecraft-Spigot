@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 public class PlayerListener implements Listener {
 
     private static boolean isJumpAndRunRunning = false;
@@ -85,11 +87,52 @@ public class PlayerListener implements Listener {
 
                 currentBlockLocation = nextBlockLocation;
 
+                int randomX = ThreadLocalRandom.current().nextInt(0, 4 + 1);
+                int randomZ;
+
+                if (randomX == 4)
+                {
+                    randomZ = ThreadLocalRandom.current().nextInt(0, 1 + 1);
+                }
+                else if (randomX == 3)
+                {
+                    randomZ = ThreadLocalRandom.current().nextInt(0, 3 + 1);
+                }
+                else if (randomX == 2)
+                {
+                    randomZ = ThreadLocalRandom.current().nextInt(0, 3 + 1);
+                }
+                else if (randomX == 1)
+                {
+                    randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                }
+                else if (randomX == 0)
+                {
+                    randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                }
+                else
+                {
+                    randomZ = 100;
+                }
+
+                boolean randomMinusPlusX = ThreadLocalRandom.current().nextBoolean();
+                boolean randomMinusPlusZ = ThreadLocalRandom.current().nextBoolean();
+
+                if (randomMinusPlusX)
+                {
+                    randomX = randomX - (randomX * 2);
+                }
+
+                if (randomMinusPlusZ)
+                {
+                    randomZ = randomZ - (randomZ * 2);
+                }
+
                 nextBlockLocation = new Location(
                         world,
-                        currentBlockLocation.getBlockX(),
+                        currentBlockLocation.getBlockX() + randomX,
                         currentBlockLocation.getBlockY() + 1,
-                        currentBlockLocation.getBlockZ() + 4
+                        currentBlockLocation.getBlockZ() + randomZ
                 );
 
                 nextBlockLocation.getBlock().setType(Material.CYAN_WOOL);
