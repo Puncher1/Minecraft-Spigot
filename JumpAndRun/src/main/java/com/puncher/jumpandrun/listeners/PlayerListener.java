@@ -39,6 +39,8 @@ public class PlayerListener implements Listener {
         if ((player_x == -253) && (player_y == 83) && (player_z == 310)
                 && (playerBlock.getType() == Material.OAK_PRESSURE_PLATE))
         {
+            world.playSound(playerLocation, Sound.ENTITY_ITEM_PICKUP, 30, 1);
+
             currentBlockLocation = new Location(
                     world,
                     -253,
