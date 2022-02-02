@@ -23,8 +23,10 @@ public class PlayerListener implements Listener {
     {
         Player player = event.getPlayer();
         World world = player.getWorld();
-
-        if (event.isCancelled())            // TODO: Checking if block has changed (otherwise ignore)
+        // TODO: Class for every JumpAndRund competitor.
+        // TODO: Checking if block has changed (otherwise ignore)
+        // TODO: Actionbar Counte (ev. Highscore?)
+        if (event.isCancelled())
         {
             System.out.println("return");
             return;
