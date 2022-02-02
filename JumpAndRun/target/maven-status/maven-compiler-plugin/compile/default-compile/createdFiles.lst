@@ -1,2 +1,3 @@
-com\puncher\jumpandrun\listeners\PlayerListener.class
 com\puncher\jumpandrun\Main.class
+com\puncher\jumpandrun\listeners\PlayerListener.class
+com\puncher\jumpandrun\JumpAndRun\JumpAndRun.class
