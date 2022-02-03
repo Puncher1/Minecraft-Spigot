@@ -98,9 +98,8 @@ public class JumpAndRunGeneral {
     }
 
     // Actionbar
-    private static void sendActionBar(JumpAndRunPlayer jarPlayer) {
-        jarPlayer.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
-                ChatColor.YELLOW + "Count: " + ChatColor.GREEN + jarPlayer.getJumpCount()));
+    private static void sendActionBar(JumpAndRunPlayer jarPlayer, String message) {
+        jarPlayer.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
     }
 
     public void runJarActionBar() {
@@ -110,7 +109,7 @@ public class JumpAndRunGeneral {
 
                 for (JumpAndRunPlayer jarPlayer_temp : JumpAndRunPlayers)
                 {
-                    sendActionBar(jarPlayer_temp);
+                    sendActionBar(jarPlayer_temp, jarPlayer_temp.getMessage());
                 }
             }
         }.runTaskTimer(Main.getInstance(), 1, 1);

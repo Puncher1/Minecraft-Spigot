@@ -16,12 +16,12 @@ import java.util.*;
 public class PlayerListener implements Listener {
 
     JumpAndRunGeneral generalJar = new JumpAndRunGeneral();
+    private final int countMax = 20;
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event)
     {
-        // TODO: Checking if block has changed (otherwise ignore)
-        // TODO: Actionbar Counter (ev. Highscore?)
+        // TODO: Highscore
         Player currentPlayer = event.getPlayer();
         JumpAndRunPlayer jarPlayer = null;
         boolean isPlayerPlaying = false;
@@ -51,21 +51,81 @@ public class PlayerListener implements Listener {
                 jarPlayer.getCurrentBlockLocation().getBlock().setType(Material.AIR);
                 jarPlayer.getNextBlockLocation().getBlock().setType(Material.AIR);
                 world.playSound(playerLocation, Sound.ENTITY_ITEM_BREAK, 30, 1);
-                jarPlayer.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(""));
+                jarPlayer.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("")); // to remove count instantly
             }
             else if (playerLocation.getBlockX() == jarPlayer.getNextBlockLocation().getBlockX() &&
                     playerLocation.getBlockY() - 1 == jarPlayer.getNextBlockLocation().getBlockY() &&
                     playerLocation.getBlockZ() == jarPlayer.getNextBlockLocation().getBlockZ())
             {
-                jarPlayer.getCurrentBlockLocation().getBlock().setType(Material.AIR);
-                jarPlayer.getNextBlockLocation().getBlock().setType(jarPlayer.getBlockMaterial().get("Terracotta"));
+                if (jarPlayer.getJumpCount() + 1 >= 20)
+                {
+                    Location currLoc = jarPlayer.getNextBlockLocation();
+                    int currX = currLoc.getBlockX();
+                    int currY = currLoc.getBlockY();
+                    int currZ = currLoc.getBlockZ();
+                    Location[] winningPlatform = {
+                            new Location(world, currX + 1, currY, currZ),
+                            new Location(world, currX + 2, currY, currZ),
+                            new Location(world, currX + 3, currY, currZ),
+                            new Location(world, currX - 1, currY, currZ),
+                            new Location(world, currX - 2, currY, currZ),
+                            new Location(world, currX - 3, currY, currZ),
+                            new Location(world, currX, currY, currZ + 1),
+                            new Location(world, currX, currY, currZ + 2),
+                            new Location(world, currX, currY, currZ + 3),
+                            new Location(world, currX, currY, currZ - 1),
+                            new Location(world, currX, currY, currZ - 2),
+                            new Location(world, currX, currY, currZ - 3),
+                            new Location(world, currX + 1, currY, currZ + 1),
+                            new Location(world, currX + 1, currY, currZ - 1),
+                            new Location(world, currX - 1, currY, currZ + 1),
+                            new Location(world, currX - 1, currY, currZ - 1),
+                            new Location(world, currX + 1, currY, currZ + 2),
+                            new Location(world, currX + 1, currY, currZ - 2),
+                            new Location(world, currX - 1, currY, currZ + 2),
+                            new Location(world, currX - 1, currY, currZ - 2),
+                            new Location(world, currX + 2, currY, currZ + 1),
+                            new Location(world, currX + 2, currY, currZ - 1),
+                            new Location(world, currX - 2, currY, currZ + 1),
+                            new Location(world, currX - 2, currY, currZ - 1)
+                    };
 
-                jarPlayer.setCurrentBlockLocation(jarPlayer.getNextBlockLocation());
+                    for (Location blockLocation: winningPlatform)
+                    {
+                        blockLocation.getBlock().setType(Material.WHITE_STAINED_GLASS);
+                    }
 
-                jarPlayer.setNextBlockLocation(generalJar.randomNextLocation(world, jarPlayer.getCurrentBlockLocation()));
-                jarPlayer.getNextBlockLocation().getBlock().setType(jarPlayer.getBlockMaterial().get("Wool"));
-                world.playSound(playerLocation, Sound.ENTITY_ITEM_PICKUP, 30, 1);
-                jarPlayer.incJumpCount();
+                    jarPlayer.setMessage(ChatColor.MAGIC + "" + ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Gewonnen!");
+                    jarPlayer.getNextBlockLocation().getBlock().setType(Material.CHISELED_QUARTZ_BLOCK);
+                    jarPlayer.getCurrentBlockLocation().getBlock().setType(Material.AIR);
+
+                    generalJar.removeJarPlayer(jarPlayer);
+                }
+
+                else
+                {
+                    jarPlayer.getCurrentBlockLocation().getBlock().setType(Material.AIR);
+                    jarPlayer.getNextBlockLocation().getBlock().setType(jarPlayer.getBlockMaterial().get("Terracotta"));
+
+                    jarPlayer.setCurrentBlockLocation(jarPlayer.getNextBlockLocation());
+
+                    jarPlayer.setNextBlockLocation(generalJar.randomNextLocation(world, jarPlayer.getCurrentBlockLocation()));
+                    jarPlayer.getNextBlockLocation().getBlock().setType(jarPlayer.getBlockMaterial().get("Wool"));
+                    world.playSound(playerLocation, Sound.ENTITY_ITEM_PICKUP, 30, 1);
+                    jarPlayer.incJumpCount();
+                }
+
+                if ((countMax - jarPlayer.getJumpCount()) <= 10)
+                {
+                    int jumpsRemaining = countMax - jarPlayer.getJumpCount();
+                    jarPlayer.setMessage(ChatColor.YELLOW + "Count: " + ChatColor.GREEN + jarPlayer.getJumpCount() +
+                            ChatColor.GRAY + " | " + ChatColor.GOLD + "Remaining: " + ChatColor.GREEN + jumpsRemaining);
+                }
+                else
+                {
+                    jarPlayer.setMessage(ChatColor.YELLOW + "Count: " +ChatColor.GREEN + jarPlayer.getJumpCount());
+                }
+
             }
 
         }

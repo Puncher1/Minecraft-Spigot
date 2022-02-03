@@ -25,11 +25,12 @@ public class JumpAndRunPlayer {
     private Map<String, Material> blockMaterial = new HashMap<>();
 
     private int jumpCount;
+    private String message;
 
     // Init
-    public JumpAndRunPlayer(Player playerInit)
+    public JumpAndRunPlayer(Player player)
     {
-        this.player = playerInit;
+        this.player = player;
 
         Material[] woolList = {
                 Material.BLACK_WOOL,
@@ -71,11 +72,11 @@ public class JumpAndRunPlayer {
         Material woolMaterial = woolList[woolIndex];
         Material terracottaMaterial = JumpAndRunMaterials.get(woolMaterial);
 
-        this.blockMaterial.put("Wool", woolMaterial);
-        this.blockMaterial.put("Terracotta", terracottaMaterial);
+        blockMaterial.put("Wool", woolMaterial);
+        blockMaterial.put("Terracotta", terracottaMaterial);
 
-        this.jumpCount = 0;
-
+        jumpCount = 0;
+        message = "";
     }
 
     // Player
@@ -136,5 +137,16 @@ public class JumpAndRunPlayer {
     public void decJumpCount()
     {
         jumpCount--;
+    }
+
+    // message
+    public String getMessage()
+    {
+        return message;
+    }
+
+    public void setMessage(String message)
+    {
+        this.message = message;
     }
 }
