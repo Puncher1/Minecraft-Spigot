@@ -1,5 +1,6 @@
 package com.puncher.jumpandrun;
 
+import com.puncher.jumpandrun.JumpAndRun.JumpAndRunGeneral;
 import com.puncher.jumpandrun.listeners.PlayerListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -22,11 +23,16 @@ public final class Main extends JavaPlugin {
         PluginManager manager = Bukkit.getPluginManager();
 
         manager.registerEvents(new PlayerListener(), this);
-
+        new JumpAndRunGeneral().runJarActionBar();
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    public static Main getInstance()
+    {
+        return instance;
     }
 }

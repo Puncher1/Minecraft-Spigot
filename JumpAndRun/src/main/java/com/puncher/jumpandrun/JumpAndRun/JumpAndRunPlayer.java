@@ -1,15 +1,22 @@
 package com.puncher.jumpandrun.JumpAndRun;
 
+import com.puncher.jumpandrun.Main;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class JumpAndRun {
+public class JumpAndRunPlayer {
 
     private Player player;
     private Location currentBlockLocation;
@@ -17,10 +24,12 @@ public class JumpAndRun {
 
     private Map<String, Material> blockMaterial = new HashMap<>();
 
+    private int jumpCount;
+
     // Init
-    public JumpAndRun(Player playerInit)
+    public JumpAndRunPlayer(Player playerInit)
     {
-        setPlayer(playerInit);
+        this.player = playerInit;
 
         Material[] woolList = {
                 Material.BLACK_WOOL,
@@ -62,8 +71,10 @@ public class JumpAndRun {
         Material woolMaterial = woolList[woolIndex];
         Material terracottaMaterial = JumpAndRunMaterials.get(woolMaterial);
 
-        blockMaterial.put("Wool", woolMaterial);
-        blockMaterial.put("Terracotta", terracottaMaterial);
+        this.blockMaterial.put("Wool", woolMaterial);
+        this.blockMaterial.put("Terracotta", terracottaMaterial);
+
+        this.jumpCount = 0;
 
     }
 
@@ -105,5 +116,25 @@ public class JumpAndRun {
     {
         return blockMaterial;
     }
-}
 
+    // jumpCount
+    public int getJumpCount()
+    {
+        return jumpCount;
+    }
+
+    public void setJumpCount(int count)
+    {
+        jumpCount = count;
+    }
+
+    public void incJumpCount()
+    {
+        jumpCount++;
+    }
+
+    public void decJumpCount()
+    {
+        jumpCount--;
+    }
+}
