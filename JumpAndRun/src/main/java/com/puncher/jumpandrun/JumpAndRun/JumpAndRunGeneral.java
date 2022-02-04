@@ -109,6 +109,7 @@ public class JumpAndRunGeneral {
 
                 for (JumpAndRunPlayer jarPlayer_temp : JumpAndRunPlayers)
                 {
+                    System.out.println(jarPlayer_temp.getMessage());
                     sendActionBar(jarPlayer_temp, jarPlayer_temp.getMessage());
                 }
             }

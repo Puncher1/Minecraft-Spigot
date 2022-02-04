@@ -1,16 +1,9 @@
 package com.puncher.jumpandrun.JumpAndRun;
 
-import com.puncher.jumpandrun.Main;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,6 +19,7 @@ public class JumpAndRunPlayer {
 
     private int jumpCount;
     private String message;
+    private boolean hasWon;
 
     // Init
     public JumpAndRunPlayer(Player player)
@@ -67,7 +61,7 @@ public class JumpAndRunPlayer {
         JumpAndRunMaterials.put(Material.WHITE_WOOL, Material.WHITE_TERRACOTTA);
         JumpAndRunMaterials.put(Material.YELLOW_WOOL, Material.YELLOW_TERRACOTTA);
 
-        int woolIndex = ThreadLocalRandom.current().nextInt(0, woolList.length + 1);
+        int woolIndex = ThreadLocalRandom.current().nextInt(0, woolList.length);
 
         Material woolMaterial = woolList[woolIndex];
         Material terracottaMaterial = JumpAndRunMaterials.get(woolMaterial);
@@ -77,6 +71,7 @@ public class JumpAndRunPlayer {
 
         jumpCount = 0;
         message = "";
+        hasWon = false;
     }
 
     // Player
@@ -148,5 +143,16 @@ public class JumpAndRunPlayer {
     public void setMessage(String message)
     {
         this.message = message;
+    }
+
+    // hasWon
+    public void setHasWon(boolean bool)
+    {
+        hasWon = bool;
+    }
+
+    public boolean getHasWon()
+    {
+        return hasWon;
     }
 }
