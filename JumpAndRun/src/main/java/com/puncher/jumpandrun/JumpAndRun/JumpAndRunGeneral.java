@@ -56,11 +56,11 @@ public class JumpAndRunGeneral {
             } else if (randomX == 3) {
                 randomZ = ThreadLocalRandom.current().nextInt(0, 4 + 1);
             } else if (randomX == 2) {
-                randomZ = ThreadLocalRandom.current().nextInt(0, 4 + 1);
+                randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
             } else if (randomX == 1) {
-                randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                randomZ = ThreadLocalRandom.current().nextInt(3, 4 + 1);
             } else if (randomX == 0) {
-                randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                randomZ = ThreadLocalRandom.current().nextInt(3, 4 + 1);
             }
         } else if (randomY == 1) {
             randomX = ThreadLocalRandom.current().nextInt(0, 4 + 1);
@@ -70,11 +70,11 @@ public class JumpAndRunGeneral {
             } else if (randomX == 3) {
                 randomZ = ThreadLocalRandom.current().nextInt(0, 3 + 1);
             } else if (randomX == 2) {
-                randomZ = ThreadLocalRandom.current().nextInt(0, 3 + 1);
+                randomZ = ThreadLocalRandom.current().nextInt(3, 3 + 1);
             } else if (randomX == 1) {
-                randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                randomZ = ThreadLocalRandom.current().nextInt(3, 4 + 1);
             } else if (randomX == 0) {
-                randomZ = ThreadLocalRandom.current().nextInt(2, 4 + 1);
+                randomZ = ThreadLocalRandom.current().nextInt(3, 4 + 1);
             }
         }
 
@@ -109,7 +109,6 @@ public class JumpAndRunGeneral {
 
                 for (JumpAndRunPlayer jarPlayer_temp : JumpAndRunPlayers)
                 {
-                    System.out.println(jarPlayer_temp.getMessage());
                     sendActionBar(jarPlayer_temp, jarPlayer_temp.getMessage());
                 }
             }

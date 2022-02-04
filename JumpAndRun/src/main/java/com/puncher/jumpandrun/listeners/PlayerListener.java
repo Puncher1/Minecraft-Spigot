@@ -16,7 +16,10 @@ import java.util.*;
 public class PlayerListener implements Listener {
 
     JumpAndRunGeneral generalJar = new JumpAndRunGeneral();
-    private final int countMax = 20;
+    private final int countMax = 100;
+    private final int triggerPoint_X = -253;
+    private final int triggerPoint_Y = 83;
+    private final int triggerPoint_Z = 310;
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event)
@@ -97,13 +100,14 @@ public class PlayerListener implements Listener {
                     jarPlayer.getCurrentBlockLocation().getBlock().setType(Material.AIR);
                     jarPlayer.getNextBlockLocation().getBlock().setType(Material.AIR);
                     world.playSound(playerLocation, Sound.ENTITY_ITEM_BREAK, 30, 1);
-                    jarPlayer.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("")); // to remove count instantly
+                    jarPlayer.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
+                            ChatColor.RED + "" + ChatColor.BOLD + "Failed!"));
                 }
                 else if (playerLocation.getBlockX() == jarPlayer.getNextBlockLocation().getBlockX() &&
                         playerLocation.getBlockY() - 1 == jarPlayer.getNextBlockLocation().getBlockY() &&
                         playerLocation.getBlockZ() == jarPlayer.getNextBlockLocation().getBlockZ())
                 {
-                    if (jarPlayer.getJumpCount() + 1 >= 20)
+                    if (jarPlayer.getJumpCount() + 1 >= countMax)
                     {
                         jarPlayer.getNextBlockLocation().getBlock().setType(Material.CHISELED_QUARTZ_BLOCK);
                         jarPlayer.getCurrentBlockLocation().getBlock().setType(Material.AIR);
@@ -144,7 +148,7 @@ public class PlayerListener implements Listener {
                         {
                             blockLocation.getBlock().setType(Material.WHITE_STAINED_GLASS);
                         }
-                        jarPlayer.setMessage(ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Gewonnen!");
+                        jarPlayer.setMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "You won!");
                         jarPlayer.setHasWon(true);
                     }
 
@@ -179,54 +183,9 @@ public class PlayerListener implements Listener {
             }
 
         }
-//        else if (jarPlayer.getHasWon())
-//        {
-//            if (jarPlayer.getPlayer().getLocation().getBlockY() < jarPlayer.getCurrentBlockLocation().getBlockY())
-//            {
-//                Location currLoc = jarPlayer.getNextBlockLocation();
-//                int currX = currLoc.getBlockX();
-//                int currY = currLoc.getBlockY();
-//                int currZ = currLoc.getBlockZ();
-//                Location[] winningPlatform = {
-//                        new Location(world, currX + 1, currY, currZ),
-//                        new Location(world, currX + 2, currY, currZ),
-//                        new Location(world, currX + 3, currY, currZ),
-//                        new Location(world, currX - 1, currY, currZ),
-//                        new Location(world, currX - 2, currY, currZ),
-//                        new Location(world, currX - 3, currY, currZ),
-//                        new Location(world, currX, currY, currZ + 1),
-//                        new Location(world, currX, currY, currZ + 2),
-//                        new Location(world, currX, currY, currZ + 3),
-//                        new Location(world, currX, currY, currZ - 1),
-//                        new Location(world, currX, currY, currZ - 2),
-//                        new Location(world, currX, currY, currZ - 3),
-//                        new Location(world, currX + 1, currY, currZ + 1),
-//                        new Location(world, currX + 1, currY, currZ - 1),
-//                        new Location(world, currX - 1, currY, currZ + 1),
-//                        new Location(world, currX - 1, currY, currZ - 1),
-//                        new Location(world, currX + 1, currY, currZ + 2),
-//                        new Location(world, currX + 1, currY, currZ - 2),
-//                        new Location(world, currX - 1, currY, currZ + 2),
-//                        new Location(world, currX - 1, currY, currZ - 2),
-//                        new Location(world, currX + 2, currY, currZ + 1),
-//                        new Location(world, currX + 2, currY, currZ - 1),
-//                        new Location(world, currX - 2, currY, currZ + 1),
-//                        new Location(world, currX - 2, currY, currZ - 1)
-//                };
-//
-//                for (Location blockLocation: winningPlatform)
-//                {
-//                    blockLocation.getBlock().setType(Material.AIR);
-//                }
-//                jarPlayer.getCurrentBlockLocation().getBlock().setType(Material.AIR);
-//
-//            }
-//
-//            jarPlayer.setHasWon(false);
-//        }
         else
         {
-            if ((player_x == -253) && (player_y == 83) && (player_z == 310)
+            if ((player_x == -triggerPoint_X) && (player_y == triggerPoint_Y) && (player_z == triggerPoint_Z)
                 && (playerBlock.getType() == Material.OAK_PRESSURE_PLATE))
             {
                 Location triggerLocation = new Location(world, (double)-253, (double)83, (double)310);
