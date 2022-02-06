@@ -45,7 +45,7 @@ public class ScoreboardBuilder {
     public void runScoreboard() {
         new BukkitRunnable() {
             @Override
-            public void run() {             // TODO: nicht
+            public void run() {
 
                 String[] players = {"5headPuncher", "Puncher2"};
                 int[] highscores = {10, 5};
@@ -56,7 +56,7 @@ public class ScoreboardBuilder {
                     {
                         continue;
                     }
-                    setScoreboard(Bukkit.getPlayer(players[i]), highscores[i]);
+                    setScoreboard(Bukkit.getPlayer(players[i]), highscores[i]);     // TODO: only at changes
                 }
                 
             }
