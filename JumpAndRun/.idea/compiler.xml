@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="JumpAndRun" target="1.17" />
+      <module name="JumpAndRun" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

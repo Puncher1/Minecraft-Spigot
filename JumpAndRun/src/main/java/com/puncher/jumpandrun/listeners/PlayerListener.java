@@ -16,7 +16,7 @@ import java.util.*;
 public class PlayerListener implements Listener {
 
     JumpAndRunGeneral generalJar = new JumpAndRunGeneral();
-    private final int countMax = 100;
+    private final int countMax = 20;
     private final int triggerPoint_X = -253;
     private final int triggerPoint_Y = 83;
     private final int triggerPoint_Z = 310;
@@ -99,7 +99,7 @@ public class PlayerListener implements Listener {
                     generalJar.removeJarPlayer(jarPlayer);
                     jarPlayer.getCurrentBlockLocation().getBlock().setType(Material.AIR);
                     jarPlayer.getNextBlockLocation().getBlock().setType(Material.AIR);
-                    world.playSound(playerLocation, Sound.ENTITY_ITEM_BREAK, 30, 1);
+                    world.playSound(playerLocation, Sound.ENTITY_ITEM_BREAK, 30, 1);        // TODO: only play sound for specific player
                     jarPlayer.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(
                             ChatColor.RED + "" + ChatColor.BOLD + "Failed!"));
                 }
@@ -149,6 +149,7 @@ public class PlayerListener implements Listener {
                             blockLocation.getBlock().setType(Material.WHITE_STAINED_GLASS);
                         }
                         jarPlayer.setMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "You won!");
+                        world.playSound(playerLocation, Sound.ENTITY_PLAYER_LEVELUP, 20, 1); // TODO: only play sound for specific player
                         jarPlayer.setHasWon(true);
                     }
 
@@ -161,7 +162,7 @@ public class PlayerListener implements Listener {
 
                         jarPlayer.setNextBlockLocation(generalJar.randomNextLocation(world, jarPlayer.getCurrentBlockLocation()));
                         jarPlayer.getNextBlockLocation().getBlock().setType(jarPlayer.getBlockMaterial().get("Wool"));
-                        world.playSound(playerLocation, Sound.ENTITY_ITEM_PICKUP, 30, 1);
+                        world.playSound(playerLocation, Sound.ENTITY_ITEM_PICKUP, 20, 1); // TODO: only play sound for specific player
                         jarPlayer.incJumpCount();
                     }
 
@@ -185,7 +186,7 @@ public class PlayerListener implements Listener {
         }
         else
         {
-            if ((player_x == -triggerPoint_X) && (player_y == triggerPoint_Y) && (player_z == triggerPoint_Z)
+            if ((player_x == triggerPoint_X) && (player_y == triggerPoint_Y) && (player_z == triggerPoint_Z)
                 && (playerBlock.getType() == Material.OAK_PRESSURE_PLATE))
             {
                 Location triggerLocation = new Location(world, (double)-253, (double)83, (double)310);
@@ -203,7 +204,7 @@ public class PlayerListener implements Listener {
                 currentPlayer.teleport(teleportLocation);
                 generalJar.addJarPlayer(newJarPlayer);
 
-                world.playSound(playerLocation, Sound.ENTITY_ITEM_PICKUP, 30, 1);
+                world.playSound(playerLocation, Sound.ENTITY_ITEM_PICKUP, 20, 1); // TODO: only play sound for specific player
                 newJarPlayer.setMessage(ChatColor.YELLOW + "Count: " +ChatColor.GREEN + newJarPlayer.getJumpCount());
             }
         }
